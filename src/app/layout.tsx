@@ -135,9 +135,14 @@ export default async function RootLayout({
                 <circle cx="50" cy="38" r="16" fill={region.brandAccentColor} />
                 <line x1="24" y1="66" x2="76" y2="66" stroke={region.brandAccentColor} strokeWidth="6" strokeLinecap="round" />
               </svg>
+              {/* Brand-colored in light mode via the --brand-primary CSS
+                  var (set below on <html>, per region); switches to plain
+                  white in dark mode instead, since some regions' colors
+                  (e.g. National's red, on the dark header background)
+                  don't have enough contrast to stay easily readable. */}
               <span className="flex flex-col leading-none">
-                <span className="text-base font-extrabold" style={{ color: region.brandPrimaryColor }}>{region.displayName}</span>
-                <span className="text-[11px] font-bold tracking-wide" style={{ color: region.brandPrimaryColor }}>News Feed</span>
+                <span className="text-base font-extrabold text-[color:var(--brand-primary)] dark:text-white">{region.displayName}</span>
+                <span className="text-[11px] font-bold tracking-wide text-[color:var(--brand-primary)] dark:text-white">News Feed</span>
               </span>
             </Link>
             <div className="flex items-center gap-4">

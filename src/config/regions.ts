@@ -57,6 +57,13 @@ export const REGIONS: Region[] = [
 
 export const DEFAULT_REGION_SLUG = 'national';
 
+// Name of the cookie a visitor's manual region choice (from the header
+// dropdown, RegionSwitcher.tsx) is saved under. Lives here rather than in
+// proxy.ts so the client-side switcher component can import it without
+// pulling in proxy.ts's next/server (Edge-only) imports into the browser
+// bundle.
+export const REGION_COOKIE = 'wc-region';
+
 const REGION_BY_DOMAIN = new Map(REGIONS.map((r) => [r.domain, r]));
 const REGION_BY_SLUG = new Map(REGIONS.map((r) => [r.slug, r]));
 

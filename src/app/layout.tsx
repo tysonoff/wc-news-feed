@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import AuthWidget from "@/components/AuthWidget";
 import ThemeToggle from "@/components/ThemeToggle";
+import RegionSwitcher from "@/components/RegionSwitcher";
 import { Analytics } from "@vercel/analytics/next";
 import Link from "next/link";
 import { headers } from "next/headers";
@@ -140,6 +141,7 @@ export default async function RootLayout({
               </span>
             </Link>
             <div className="flex items-center gap-4">
+              <RegionSwitcher currentSlug={region.slug} />
               <ThemeToggle />
               <AuthWidget />
             </div>

@@ -1,5 +1,5 @@
 {
-  "_readme": "Per-region scraper source lists. Shared by src/app/api/scrape/route.js (the hourly cron endpoint) and scraper.js (manual/local runs) via require()/import — kept as JSON specifically so both a CommonJS script and the Next.js route handler can load the exact same data instead of drifting out of sync. requiresKeywordFilter=true marks sources known to mix syndicated national/wire content into their local feed (Pattison Media 'NOW' network, sister-station sites) — syncFeed() filters those against the region's keywordFilter regex before saving. manitoba and british-columbia are deliberately left as empty stubs: per WCNEWSFEED_HANDOFF.md's suggested milestone, Alberta is being proven out first before the remaining regions get real source lists.",
+  "_readme": "Per-region scraper source lists. Shared by src/app/api/scrape/route.js (the hourly cron endpoint) and scraper.js (manual/local runs) via require()/import — kept as JSON specifically so both a CommonJS script and the Next.js route handler can load the exact same data instead of drifting out of sync. requiresKeywordFilter=true marks sources known to mix syndicated national/wire content into their local feed (Pattison Media portal network, sister-station sites) — syncFeed() filters those against the region's keywordFilter regex before saving. manitoba and british-columbia were populated July 2026, after Alberta was proven out per WCNEWSFEED_HANDOFF.md's suggested milestone — a few entries in each carry a 'note' flagging that the exact feed URL couldn't be independently confirmed ahead of time (the research tool used couldn't reach that specific domain); the first live scrape's response summary is the real confirmation, same as it was for Postmedia sources originally.",
 
   "saskatchewan": {
     "keywordFilter": "\\b(saskatchewan|sask\\.?|regina|saskatoon|moose jaw|prince albert|yorkton|swift current|weyburn|north battleford|estevan|melfort|humboldt|meadow lake|nipawin|kindersley|la ronge|lloydminster|warman|martensville|melville|canora|kamsack|norquay|raymore|biggar|assiniboia|maple creek|wynyard|watrous|rosetown|tisdale|indian head|carlyle|gravelbourg|shaunavon|unity|wadena)\\b",
@@ -41,14 +41,34 @@
 
   "manitoba": {
     "keywordFilter": "\\b(manitoba|man\\.?|winnipeg|brandon|steinbach|thompson|portage la prairie|selkirk|dauphin|morden|winkler|the pas)\\b",
-    "sources": [],
-    "todo": "Stub — no sources populated yet. Fill in once Alberta is proven end-to-end, per the handoff's suggested milestone order."
+    "sources": [
+      { "name": "CBC Manitoba", "url": "https://www.cbc.ca/cmlink/rss-canada-manitoba", "requiresKeywordFilter": false },
+      { "name": "Global News Winnipeg", "url": "https://globalnews.ca/winnipeg/feed/", "requiresKeywordFilter": false },
+      { "name": "Winnipeg Free Press", "url": "https://www.winnipegfreepress.com/rss/", "requiresKeywordFilter": false, "note": "Could not confirm this feed directly (fetch tool couldn't reach the domain) — confirm via the first live scrape's response summary, adjust URL if it fails." },
+      { "name": "Winnipeg Sun", "url": "https://winnipegsun.com/feed", "requiresKeywordFilter": false, "note": "Postmedia — actively blocks scraping, expect this to fail often (see handoff)." },
+      { "name": "Brandon Sun", "url": "https://www.brandonsun.com/rss/", "requiresKeywordFilter": false, "note": "Could not confirm this feed directly (fetch tool couldn't reach the domain) — confirm via the first live scrape's response summary, adjust URL if it fails." },
+      { "name": "mySteinbach.ca", "url": "https://www.mysteinbach.ca/feed/", "requiresKeywordFilter": false }
+    ]
   },
 
   "british-columbia": {
     "keywordFilter": "\\b(british columbia|b\\.c\\.?|vancouver|victoria|surrey|burnaby|richmond|kelowna|kamloops|nanaimo|abbotsford|prince george|chilliwack|vernon|penticton|coquitlam|langley|maple ridge|nelson|cranbrook|terrace|prince rupert|whistler)\\b",
-    "sources": [],
-    "todo": "Stub — no sources populated yet. Fill in once Alberta is proven end-to-end, per the handoff's suggested milestone order."
+    "sources": [
+      { "name": "CBC British Columbia", "url": "https://www.cbc.ca/cmlink/rss-canada-britishcolumbia", "requiresKeywordFilter": false },
+      { "name": "Global News BC", "url": "https://globalnews.ca/bc/feed/", "requiresKeywordFilter": false },
+      { "name": "Global News Okanagan", "url": "https://globalnews.ca/okanagan/feed/", "requiresKeywordFilter": false },
+      { "name": "Castanet", "url": "https://www.castanet.net/rss/mostrecent.xml", "requiresKeywordFilter": false, "note": "Kelowna-based but covers BC broadly (Okanagan, Metro Vancouver, Kamloops, Kootenays); occasionally includes non-BC wire stories mixed in, same as CBC/Global's own feeds." },
+      { "name": "Vancouver Sun", "url": "https://vancouversun.com/feed", "requiresKeywordFilter": false, "note": "Postmedia — actively blocks scraping, expect this to fail often (see handoff)." },
+      { "name": "The Province", "url": "https://theprovince.com/feed", "requiresKeywordFilter": false, "note": "Postmedia — actively blocks scraping, expect this to fail often (see handoff)." },
+      { "name": "Times Colonist", "url": "https://timescolonist.com/feed", "requiresKeywordFilter": false, "note": "Postmedia — actively blocks scraping, expect this to fail often (see handoff)." },
+      { "name": "Vancouver Is Awesome", "url": "https://vancouverisawesome.com/feed/", "requiresKeywordFilter": false, "note": "Could not confirm this feed directly (fetch tool couldn't reach the domain) — confirm via the first live scrape's response summary." },
+      { "name": "CHEK News", "url": "https://cheknews.ca/feed/", "requiresKeywordFilter": false, "note": "Could not confirm this feed directly (fetch tool couldn't reach the domain) — confirm via the first live scrape's response summary." },
+      { "name": "Vernon Matters", "url": "https://vernonmatters.ca/feed/", "requiresKeywordFilter": true, "note": "Pattison Media portal network, same family as saskNOW/paNOW/Lethbridge News Now — mixes in syndicated content." },
+      { "name": "Kelowna10", "url": "https://www.kelowna10.com/feed/", "requiresKeywordFilter": true, "note": "Pattison Media portal network, same family as saskNOW/paNOW — mixes in syndicated content. Could not confirm this specific feed directly; confirm via the first live scrape." },
+      { "name": "NanaimoNewsNow", "url": "https://nanaimonewsnow.com/feed/", "requiresKeywordFilter": true, "note": "Pattison Media portal network, same family as saskNOW/paNOW — mixes in syndicated content." },
+      { "name": "CKPGToday", "url": "https://ckpgtoday.ca/feed/", "requiresKeywordFilter": true, "note": "Pattison Media portal network (Prince George / North Central BC), same family as saskNOW/paNOW — mixes in syndicated content." },
+      { "name": "FraserValleyToday", "url": "https://fraservalleytoday.ca/feed/", "requiresKeywordFilter": true, "note": "Pattison Media portal network (Chilliwack / Fraser Valley), same family as saskNOW/paNOW — mixes in syndicated content." }
+    ]
   },
 
   "national": {

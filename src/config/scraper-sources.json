@@ -1,0 +1,62 @@
+{
+  "_readme": "Per-region scraper source lists. Shared by src/app/api/scrape/route.js (the hourly cron endpoint) and scraper.js (manual/local runs) via require()/import — kept as JSON specifically so both a CommonJS script and the Next.js route handler can load the exact same data instead of drifting out of sync. requiresKeywordFilter=true marks sources known to mix syndicated national/wire content into their local feed (Pattison Media 'NOW' network, sister-station sites) — syncFeed() filters those against the region's keywordFilter regex before saving. manitoba and british-columbia are deliberately left as empty stubs: per WCNEWSFEED_HANDOFF.md's suggested milestone, Alberta is being proven out first before the remaining regions get real source lists.",
+
+  "saskatchewan": {
+    "keywordFilter": "\\b(saskatchewan|sask\\.?|regina|saskatoon|moose jaw|prince albert|yorkton|swift current|weyburn|north battleford|estevan|melfort|humboldt|meadow lake|nipawin|kindersley|la ronge|lloydminster|warman|martensville|melville|canora|kamsack|norquay|raymore|biggar|assiniboia|maple creek|wynyard|watrous|rosetown|tisdale|indian head|carlyle|gravelbourg|shaunavon|unity|wadena)\\b",
+    "sources": [
+      { "name": "CBC Saskatchewan", "url": "https://www.cbc.ca/cmlink/rss-canada-saskatchewan", "requiresKeywordFilter": false },
+      { "name": "Global News Regina", "url": "https://globalnews.ca/regina/feed/", "requiresKeywordFilter": false },
+      { "name": "Global News Saskatoon", "url": "https://globalnews.ca/saskatoon/feed/", "requiresKeywordFilter": false },
+      { "name": "Regina Leader-Post", "url": "https://leaderpost.com/feed", "requiresKeywordFilter": false, "note": "Postmedia — actively blocks scraping, expect this to fail often (see handoff)." },
+      { "name": "Saskatoon StarPhoenix", "url": "https://thestarphoenix.com/feed", "requiresKeywordFilter": false, "note": "Postmedia — actively blocks scraping, expect this to fail often (see handoff)." },
+      { "name": "The Western Producer", "url": "https://www.producer.com/feed/", "requiresKeywordFilter": false },
+      { "name": "saskNOW", "url": "https://sasknow.com/feed/", "requiresKeywordFilter": true },
+      { "name": "Grasslands News", "url": "https://grasslandsnews.ca/feed/", "requiresKeywordFilter": false },
+      { "name": "Eagle Feather News", "url": "https://www.eaglefeathernews.com/feed", "requiresKeywordFilter": false },
+      { "name": "Prince Albert Daily Herald", "url": "https://paherald.sk.ca/feed/", "requiresKeywordFilter": false },
+      { "name": "Clark's Crossing Gazette", "url": "https://ccgazette.ca/feed/", "requiresKeywordFilter": false },
+      { "name": "980 CJME", "url": "https://www.cjme.com/feed/", "requiresKeywordFilter": true },
+      { "name": "MBC Radio", "url": "https://www.mbcradio.com/feed/", "requiresKeywordFilter": false },
+      { "name": "paNOW", "url": "https://panow.com/feed/", "requiresKeywordFilter": true },
+      { "name": "battlefordsNOW", "url": "https://battlefordsnow.com/feed/", "requiresKeywordFilter": true },
+      { "name": "meadowlakeNOW", "url": "https://meadowlakenow.com/feed/", "requiresKeywordFilter": true },
+      { "name": "larongeNOW", "url": "https://larongenow.com/feed/", "requiresKeywordFilter": true },
+      { "name": "northeastNOW", "url": "https://northeastnow.com/feed/", "requiresKeywordFilter": true }
+    ]
+  },
+
+  "alberta": {
+    "keywordFilter": "\\b(alberta|alta\\.?|calgary|edmonton|red deer|lethbridge|medicine hat|fort mcmurray|grande prairie|airdrie|spruce grove|leduc|okotoks|cochrane|lloydminster|camrose|canmore|banff|jasper|st\\.? albert|sherwood park|wetaskiwin|brooks|high river|strathmore|olds|innisfail|drumheller|hinton|whitecourt|slave lake|peace river|high level|taber|coaldale|didsbury|stony plain|beaumont)\\b",
+    "sources": [
+      { "name": "CBC Calgary", "url": "https://www.cbc.ca/cmlink/rss-canada-calgary", "requiresKeywordFilter": false },
+      { "name": "CBC Edmonton", "url": "https://www.cbc.ca/cmlink/rss-canada-edmonton", "requiresKeywordFilter": false },
+      { "name": "Global News Calgary", "url": "https://globalnews.ca/calgary/feed/", "requiresKeywordFilter": false },
+      { "name": "Global News Edmonton", "url": "https://globalnews.ca/edmonton/feed/", "requiresKeywordFilter": false },
+      { "name": "Calgary Herald", "url": "https://calgaryherald.com/feed", "requiresKeywordFilter": false, "note": "Postmedia — actively blocks scraping, expect this to fail often (see handoff)." },
+      { "name": "Edmonton Journal", "url": "https://edmontonjournal.com/feed", "requiresKeywordFilter": false, "note": "Postmedia — actively blocks scraping, expect this to fail often (see handoff)." },
+      { "name": "Taproot Edmonton", "url": "https://edmonton.taproot.news/news/feed", "requiresKeywordFilter": false },
+      { "name": "Lethbridge News Now", "url": "https://lethbridgenewsnow.com/feed/", "requiresKeywordFilter": true, "note": "Pattison Media 'NOW' network, same family as saskNOW/paNOW — mixes in syndicated content." }
+    ]
+  },
+
+  "manitoba": {
+    "keywordFilter": "\\b(manitoba|man\\.?|winnipeg|brandon|steinbach|thompson|portage la prairie|selkirk|dauphin|morden|winkler|the pas)\\b",
+    "sources": [],
+    "todo": "Stub — no sources populated yet. Fill in once Alberta is proven end-to-end, per the handoff's suggested milestone order."
+  },
+
+  "british-columbia": {
+    "keywordFilter": "\\b(british columbia|b\\.c\\.?|vancouver|victoria|surrey|burnaby|richmond|kelowna|kamloops|nanaimo|abbotsford|prince george|chilliwack|vernon|penticton|coquitlam|langley|maple ridge|nelson|cranbrook|terrace|prince rupert|whistler)\\b",
+    "sources": [],
+    "todo": "Stub — no sources populated yet. Fill in once Alberta is proven end-to-end, per the handoff's suggested milestone order."
+  },
+
+  "national": {
+    "keywordFilter": null,
+    "sources": [
+      { "name": "CBC Top Stories", "url": "https://www.cbc.ca/cmlink/rss-topstories", "requiresKeywordFilter": false },
+      { "name": "CBC Canada", "url": "https://www.cbc.ca/cmlink/rss-canada", "requiresKeywordFilter": false },
+      { "name": "Global News National", "url": "https://globalnews.ca/national/feed/", "requiresKeywordFilter": false }
+    ]
+  }
+}

@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+/* Every dark: class throughout the whole app currently reacts only to
+   the OS's system setting. This one line switches all of them at once
+   to react to a .dark class on <html> instead — which is what makes a
+   manual light/dark toggle possible, with zero changes needed anywhere
+   else in the codebase. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* Fallback for the brief moment before the theme-detection script runs,
+   or if JavaScript is unavailable — still respects system preference. */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  /* A subtle diagonal gradient in the logo's green/gold, visible in the
+     empty space beside the centered content on wide screens. Content
+     cards (article cards, header, footer) all have their own explicit
+     backgrounds and sit on top of this, unaffected. */
+  background: linear-gradient(135deg, #0d3b26 0%, #1b5e3f 40%, #4a3d1a 70%, #8a6a1f 100%);
+  background-attachment: fixed;
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* iOS Safari auto-zooms the page when focusing any input under 16px font
+   size. Forcing 16px here (regardless of Tailwind text-size classes)
+   stops that jarring zoom-in every time someone taps a text box. */
+input,
+textarea,
+select {
+  font-size: 16px !important;
+  /* Let the browser's native form styling (autofill, dropdowns) match
+     whichever theme is active, instead of always forcing light. */
+  color-scheme: light dark;
+}
+
+/* Remove the default blue/gray flash Android shows when tapping buttons
+   and links — makes taps feel like a native app instead of a webpage. */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Skip the ~300ms delay mobile browsers use to detect double-tap-to-zoom
+   on interactive elements — taps register instantly, like a native app. */
+button,
+a {
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
+}

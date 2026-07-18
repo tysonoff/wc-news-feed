@@ -37,7 +37,11 @@ export const REGIONS: Region[] = [
     displayName: 'Manitoba',
     domain: 'mb.wcnewsfeed.com',
     brandPrimaryColor: '#a6192e',
-    brandAccentColor: '#4a4a4a',
+    // Was a flat grey — not a Manitoba flag color at all. Manitoba's flag
+    // (a Red Ensign) is red with a white disc bearing the provincial
+    // shield, so this is now a warm cream/ivory instead, echoing that
+    // white disc and the shield's buffalo emblem.
+    brandAccentColor: '#e8d9be',
   },
   {
     slug: 'british-columbia',
@@ -50,8 +54,12 @@ export const REGIONS: Region[] = [
     slug: 'national',
     displayName: 'National',
     domain: 'wcnewsfeed.com',
-    brandPrimaryColor: '#1a1a2e',
-    brandAccentColor: '#d52b1e',
+    // Was a dark navy — not a color the Canadian flag has at all. The
+    // flag is red-dominant (two red bars flanking a white center), so red
+    // belongs in the primary slot, with a warm off-white as the accent
+    // for the white field the maple leaf sits on.
+    brandPrimaryColor: '#c8102e',
+    brandAccentColor: '#f5f0e6',
   },
 ];
 

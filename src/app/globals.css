@@ -34,11 +34,26 @@
 }
 
 body {
-  /* A subtle diagonal gradient in the logo's green/gold, visible in the
-     empty space beside the centered content on wide screens. Content
-     cards (article cards, header, footer) all have their own explicit
-     backgrounds and sit on top of this, unaffected. */
-  background: linear-gradient(135deg, #0d3b26 0%, #1b5e3f 40%, #4a3d1a 70%, #8a6a1f 100%);
+  /* A subtle diagonal gradient in the active region's brand colors,
+     visible in the empty space beside the centered content on wide
+     screens. Content cards (article cards, header, footer) all have
+     their own explicit backgrounds and sit on top of this, unaffected.
+
+     --brand-primary and --brand-accent come from src/config/regions.ts,
+     set per-request as inline styles on <html> in layout.tsx — so this
+     automatically follows whichever region is active (picked via the
+     header dropdown, or by domain once real per-region domains exist),
+     with zero region-specific CSS needed here. Each stop is darkened via
+     color-mix() to keep the same "dark corner -> lighter corner" look
+     the original hardcoded Saskatchewan version had, rather than two
+     flat, saturated colors butting up against each other. */
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--brand-primary) 70%, black) 0%,
+    var(--brand-primary) 40%,
+    color-mix(in srgb, var(--brand-accent) 55%, black) 70%,
+    var(--brand-accent) 100%
+  );
   background-attachment: fixed;
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;

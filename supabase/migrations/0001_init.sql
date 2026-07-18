@@ -54,12 +54,15 @@ grant select on public.regions to anon, authenticated;
 -- albertanewsfeed.com) is bought for a region — nothing else needs to
 -- change, since domain-detection reads this table's data, not a
 -- hardcoded list.
+-- Colors chosen to reflect each region's actual flag, not just "look
+-- nice" — see src/config/regions.ts for the reasoning behind Manitoba's
+-- cream accent (was grey) and National's red primary (was navy).
 insert into public.regions (slug, display_name, domain, brand_primary_color, brand_accent_color) values
   ('alberta',           'Alberta',           'ab.wcnewsfeed.com', '#0b3d91', '#f2b705'),
   ('saskatchewan',      'Saskatchewan',      'sk.wcnewsfeed.com', '#1b5e3f', '#d4a72c'),
-  ('manitoba',          'Manitoba',          'mb.wcnewsfeed.com', '#a6192e', '#4a4a4a'),
+  ('manitoba',          'Manitoba',          'mb.wcnewsfeed.com', '#a6192e', '#e8d9be'),
   ('british-columbia',  'British Columbia',  'bc.wcnewsfeed.com', '#003087', '#fcb514'),
-  ('national',          'National',          'wcnewsfeed.com',    '#1a1a2e', '#d52b1e');
+  ('national',          'National',          'wcnewsfeed.com',    '#c8102e', '#f5f0e6');
 
 -- ============================================================
 -- 2. profiles

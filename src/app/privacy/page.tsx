@@ -1,23 +1,24 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Privacy Policy | Sask News Feed",
-  description: "Read the Sask News Feed privacy policy covering account data, comments, votes, and third-party services.",
+  title: "Privacy Policy | Western Canada News Feed",
+  description: "Read the Western Canada News Feed privacy policy covering account data, comments, votes, and third-party services.",
 };
 
 export default function PrivacyPolicy() {
   return (
     <div className="max-w-2xl mx-auto py-10 px-4 text-gray-800 dark:text-gray-200 bg-white dark:bg-gray-900 min-h-screen">
       <h1 className="text-2xl font-bold mb-2 text-gray-900 dark:text-gray-100">Privacy Policy</h1>
-      <p className="text-sm text-gray-500 dark:text-gray-400 mb-8">Last updated: July 17, 2026</p>
+      <p className="text-sm text-gray-500 dark:text-gray-400 mb-8">Last updated: July 18, 2026</p>
 
       <div className="flex flex-col gap-6 text-sm leading-relaxed">
         <section>
           <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">Who we are</h2>
           <p>
-            Sask News Feed (&quot;we&quot;, &quot;us&quot;) is an independent Saskatchewan news aggregator.
-            This site collects and links to headlines from third-party news sources and
-            allows registered users to vote on and comment about them.
+            Western Canada News Feed (&quot;we&quot;, &quot;us&quot;) is an independent news aggregator
+            covering Alberta, Saskatchewan, Manitoba, and British Columbia. This site collects
+            and links to headlines from third-party news sources and allows registered users
+            to vote on and comment about them.
           </p>
         </section>
 

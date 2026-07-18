@@ -1,5 +1,12 @@
+<!-- Neutral "network" brand colors (not tied to any one region's brand
+     colors in src/config/regions.ts, on purpose) — a warm near-black
+     charcoal with a brass/gold accent, echoing the gold already present
+     in several regional palettes without duplicating any of them
+     exactly. Kept as a static file (not made region-dynamic) since
+     browsers cache favicons aggressively enough that a per-region
+     version wouldn't reliably update when switching regions anyway. -->
 <svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-  <rect width="100" height="100" rx="20" fill="#1b5e3f" stroke="rgba(255,255,255,0.25)" stroke-width="3"/>
-  <circle cx="50" cy="38" r="16" fill="#d4a72c"/>
-  <line x1="24" y1="66" x2="76" y2="66" stroke="#d4a72c" stroke-width="6" stroke-linecap="round"/>
+  <rect width="100" height="100" rx="20" fill="#1e1b18" stroke="rgba(255,255,255,0.25)" stroke-width="3"/>
+  <circle cx="50" cy="38" r="16" fill="#d1a54a"/>
+  <line x1="24" y1="66" x2="76" y2="66" stroke="#d1a54a" stroke-width="6" stroke-linecap="round"/>
 </svg>

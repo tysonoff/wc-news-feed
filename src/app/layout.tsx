@@ -30,7 +30,14 @@ async function getCurrentRegion(): Promise<Region> {
 export async function generateMetadata(): Promise<Metadata> {
   const region = await getCurrentRegion();
   const siteName = `${region.displayName} News Feed`;
-  const title = `${siteName} — ${region.displayName} News, All in One Place`;
+  // Short form for the actual browser tab — "Alberta News Feed — Alberta
+  // News, All in One Place" was both repetitive (Alberta twice) and long
+  // enough to get cut off in a tab anyway. Social share previews
+  // (openGraph/twitter below) keep the fuller, more descriptive title
+  // instead, since there's room for it there and it reads better out of
+  // context than "WCNF - Alberta" would on, say, a Facebook link card.
+  const tabTitle = `WCNF - ${region.displayName}`;
+  const shareTitle = `${siteName} — ${region.displayName} News, All in One Place`;
   const description =
     region.slug === "national"
       ? "Live Canadian national news headlines from CBC, Global News, and other major outlets — updated hourly."
@@ -39,13 +46,13 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     metadataBase: new URL(url),
-    title,
+    title: tabTitle,
     description,
     alternates: {
       canonical: "/",
     },
     openGraph: {
-      title,
+      title: shareTitle,
       description,
       url,
       siteName,
@@ -54,7 +61,7 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title,
+      title: shareTitle,
       description,
     },
   };

@@ -12,6 +12,16 @@
 -- Reminder from the handoff doc: RLS policies and GRANTs are two separate
 -- layers. Every table below gets both — a missing GRANT will silently
 -- block a "correct" RLS policy, and vice versa.
+--
+-- UPDATE (discovered the hard way, July 2026): as of May 30 2026, Supabase
+-- changed the default for NEW projects so that newly created tables are no
+-- longer automatically exposed/granted to any role — including
+-- service_role (the role behind the "secret key" used by the scraper's
+-- cron route to bypass RLS). Older projects didn't need an explicit grant
+-- for service_role since it got full access automatically; projects
+-- created after that change do. Section 7 below adds those grants
+-- explicitly so this script produces a working database regardless of
+-- which default is active when it's run.
 
 -- ============================================================
 -- 1. regions — the new multi-province piece
@@ -281,3 +291,24 @@ create policy "users can unsave their own saved articles"
   using (auth.uid() = user_id);
 
 grant select, insert, delete on public.saved_articles to authenticated;
+
+-- ============================================================
+-- 7. service_role grants (see the UPDATE note near the top of this file)
+-- ============================================================
+--
+-- service_role is the role behind the "secret key" (sb_secret_...) that
+-- the scraper's cron route (src/app/api/scrape/route.js) and scraper.js
+-- use to write articles, bypassing RLS. On Supabase projects created
+-- after May 30 2026, tables aren't auto-granted to any role anymore, so
+-- without this section the scraper fails on every single write with
+-- "permission denied for table articles" even though the key itself is
+-- completely correct — grants and RLS/key-validity are separate failure
+-- modes, easy to mix up when debugging.
+grant usage on schema public to service_role;
+grant select, insert, update, delete on public.regions to service_role;
+grant select, insert, update, delete on public.profiles to service_role;
+grant select, insert, update, delete on public.articles to service_role;
+grant select, insert, update, delete on public.votes to service_role;
+grant select, insert, update, delete on public.comments to service_role;
+grant select, insert, update, delete on public.comment_reports to service_role;
+grant select, insert, update, delete on public.saved_articles to service_role;

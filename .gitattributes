@@ -1,0 +1,10 @@
+# Normalize all text files to LF in the repo, regardless of what line
+# endings a given editor/OS/tool writes to the working tree. Prevents the
+# same files from showing up as "changed" every time they're touched by
+# a different tool (this is what caused a 30-file, insertions==deletions
+# diff with no real content changes).
+* text=auto eol=lf
+
+# Windows-specific scripts should keep CRLF, since that's what Windows
+# expects to run them correctly.
+*.bat text eol=crlf

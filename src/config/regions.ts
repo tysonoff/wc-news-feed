@@ -12,6 +12,11 @@
 export type Region = {
   slug: string;
   displayName: string;
+  // Short form used only by the header dropdown (RegionSwitcher.tsx),
+  // where "British Columbia" or "Saskatchewan" made the box wide and
+  // cramped. displayName (the full name) is still used everywhere else —
+  // header logo text, page titles, OG tags, sitemap.
+  shortLabel: string;
   domain: string;
   brandPrimaryColor: string;
   brandAccentColor: string;
@@ -21,6 +26,7 @@ export const REGIONS: Region[] = [
   {
     slug: 'alberta',
     displayName: 'Alberta',
+    shortLabel: 'AB',
     domain: 'ab.wcnewsfeed.com',
     brandPrimaryColor: '#0b3d91',
     brandAccentColor: '#f2b705',
@@ -28,6 +34,7 @@ export const REGIONS: Region[] = [
   {
     slug: 'saskatchewan',
     displayName: 'Saskatchewan',
+    shortLabel: 'SK',
     domain: 'sk.wcnewsfeed.com',
     brandPrimaryColor: '#1b5e3f',
     brandAccentColor: '#d4a72c',
@@ -35,6 +42,7 @@ export const REGIONS: Region[] = [
   {
     slug: 'manitoba',
     displayName: 'Manitoba',
+    shortLabel: 'MB',
     domain: 'mb.wcnewsfeed.com',
     brandPrimaryColor: '#a6192e',
     // Was a flat grey — not a Manitoba flag color at all. Manitoba's flag
@@ -46,6 +54,7 @@ export const REGIONS: Region[] = [
   {
     slug: 'british-columbia',
     displayName: 'British Columbia',
+    shortLabel: 'BC',
     domain: 'bc.wcnewsfeed.com',
     brandPrimaryColor: '#003087',
     brandAccentColor: '#fcb514',
@@ -53,6 +62,7 @@ export const REGIONS: Region[] = [
   {
     slug: 'national',
     displayName: 'National',
+    shortLabel: 'Natl.',
     domain: 'wcnewsfeed.com',
     // Was a dark navy — not a color the Canadian flag has at all. The
     // flag is red-dominant (two red bars flanking a white center), so red

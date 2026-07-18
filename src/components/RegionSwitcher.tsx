@@ -21,15 +21,16 @@ export default function RegionSwitcher({ currentSlug }: { currentSlug: string })
       onChange={handleChange}
       aria-label="Select region"
       // min-w keeps the box a stable width no matter which region is
-      // selected - without it, picking a short name like "BC" shrinks the
-      // box, then picking "British Columbia" or "Saskatchewan" squeezes
-      // that longer text against the same tight padding. Sized to fit
-      // "British Columbia" (the longest option) comfortably.
-      className="text-sm font-medium bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full pl-3.5 pr-8 py-1.5 text-gray-700 dark:text-gray-200 cursor-pointer min-w-[11rem]"
+      // selected. Now using shortLabel (AB/SK/MB/BC/Natl.) instead of the
+      // full display name, so this only needs to fit "Natl." comfortably
+      // rather than "British Columbia".
+      className="text-sm font-medium bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full pl-3.5 pr-8 py-1.5 text-gray-700 dark:text-gray-200 cursor-pointer min-w-[4.75rem]"
     >
       {REGIONS.map((r) => (
-        <option key={r.slug} value={r.slug}>
-          {r.displayName}
+        // title gives desktop users a hover tooltip with the full name,
+        // since the visible text is now just the abbreviation.
+        <option key={r.slug} value={r.slug} title={r.displayName}>
+          {r.shortLabel}
         </option>
       ))}
     </select>

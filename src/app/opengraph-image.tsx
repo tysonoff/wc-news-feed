@@ -7,13 +7,13 @@ import { ImageResponse } from 'next/og';
 // receives a `params` prop; there's no request context available for
 // headers()/cookies() the way a normal Server Component gets one.
 // Calling headers() here threw on every request, returning a 500 for
-// any shared link. Static (not region-specific), but the background
-// gradient now runs through every province's brand color from
-// src/config/regions.ts (BC → Alberta → Saskatchewan → Manitoba,
-// primary + accent each, west to east) so a single shared image still
-// visually represents all four regions rather than one neutral scheme.
-// A dark overlay sits between the gradient and the text/logo so white
-// text stays readable regardless of which color falls behind it.
+// any shared link. Reverted to static — the neutral charcoal/gold
+// "network" gradient from icon.svg (tried running the gradient through
+// all four provinces' brand colors instead, but the original read
+// better and is what shipped). Text treatment redesigned to a
+// left-aligned editorial masthead — small uppercase eyebrow, big bold
+// wordmark, thin accent rule, province list below — instead of the
+// old centered logo-plus-tagline layout.
 export const alt = 'Western Canada News Feed — regional Canadian news, all in one place';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
@@ -23,78 +23,70 @@ export default async function Image() {
     (
       <div
         style={{
-          background:
-            'linear-gradient(135deg, #003087 0%, #fcb514 14%, #0b3d91 29%, #f2b705 43%, #1b5e3f 57%, #d4a72c 71%, #a6192e 86%, #e8d9be 100%)',
+          background: 'linear-gradient(135deg, #1e1b18 0%, #3a322b 45%, #d1a54a 100%)',
           width: '100%',
           height: '100%',
           display: 'flex',
-          position: 'relative',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          padding: '0 100px',
         }}
       >
-        {/* Darkens the busy multi-color gradient so the white headline
-            stays legible no matter which province's color lands behind
-            it — without this, light stops like the gold/cream accents
-            wash the text out. */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+          <div
+            style={{
+              width: 44,
+              height: 44,
+              borderRadius: 10,
+              background: '#d1a54a',
+              display: 'flex',
+            }}
+          />
+          <div
+            style={{
+              fontSize: 22,
+              fontWeight: 700,
+              letterSpacing: 6,
+              textTransform: 'uppercase',
+              color: 'rgba(255,255,255,0.7)',
+              display: 'flex',
+            }}
+          >
+            Western Canada
+          </div>
+        </div>
         <div
           style={{
-            position: 'absolute',
-            inset: 0,
-            background: 'linear-gradient(135deg, rgba(10,8,6,0.6) 0%, rgba(10,8,6,0.35) 50%, rgba(10,8,6,0.6) 100%)',
+            fontSize: 92,
+            fontWeight: 800,
+            color: 'white',
+            lineHeight: 1.05,
+            marginTop: 24,
+            display: 'flex',
+          }}
+        >
+          News Feed
+        </div>
+        <div
+          style={{
+            width: 120,
+            height: 6,
+            borderRadius: 3,
+            background: '#d1a54a',
+            marginTop: 36,
+            marginBottom: 30,
             display: 'flex',
           }}
         />
         <div
           style={{
-            position: 'relative',
-            width: '100%',
-            height: '100%',
+            fontSize: 28,
+            fontWeight: 500,
+            color: 'rgba(255,255,255,0.82)',
             display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: 36 }}>
-            <div
-              style={{
-                width: 160,
-                height: 160,
-                borderRadius: 32,
-                background: '#1e1b18',
-                border: '4px solid rgba(255, 255, 255, 0.35)',
-                display: 'flex',
-                position: 'relative',
-              }}
-            >
-              <div
-                style={{
-                  width: 56,
-                  height: 56,
-                  borderRadius: 999,
-                  background: '#d1a54a',
-                  position: 'absolute',
-                  top: 36,
-                  left: 52,
-                }}
-              />
-              <div
-                style={{
-                  width: 96,
-                  height: 10,
-                  borderRadius: 5,
-                  background: '#d1a54a',
-                  position: 'absolute',
-                  bottom: 40,
-                  left: 32,
-                }}
-              />
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <div style={{ fontSize: 68, fontWeight: 800, color: 'white' }}>Western Canada News Feed</div>
-              <div style={{ fontSize: 30, color: 'rgba(255,255,255,0.85)' }}>
-                Alberta, Saskatchewan, Manitoba &amp; British Columbia — all in one place
-              </div>
-            </div>
-          </div>
+          Alberta &middot; Saskatchewan &middot; Manitoba &middot; British Columbia
         </div>
       </div>
     ),

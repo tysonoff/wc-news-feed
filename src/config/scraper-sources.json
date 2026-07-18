@@ -44,7 +44,7 @@
     "sources": [
       { "name": "CBC Manitoba", "url": "https://www.cbc.ca/cmlink/rss-canada-manitoba", "requiresKeywordFilter": false },
       { "name": "Global News Winnipeg", "url": "https://globalnews.ca/winnipeg/feed/", "requiresKeywordFilter": false },
-      { "name": "Winnipeg Free Press", "url": "https://www.winnipegfreepress.com/rss/", "requiresKeywordFilter": false, "note": "Could not confirm this feed directly (fetch tool couldn't reach the domain) — confirm via the first live scrape's response summary, adjust URL if it fails." },
+      { "name": "Winnipeg Free Press", "url": "https://www.winnipegfreepress.com/rss/", "requiresKeywordFilter": true, "note": "Confirmed working via the first live scrape, but its main RSS feed mixes in national/wire stories with no real Manitoba tie — same syndicated-content pattern as the Pattison 'NOW' sites, so now filtered against the Manitoba keyword regex too." },
       { "name": "Winnipeg Sun", "url": "https://winnipegsun.com/feed", "requiresKeywordFilter": false, "note": "Postmedia — actively blocks scraping, expect this to fail often (see handoff)." },
       { "name": "Brandon Sun", "url": "https://www.brandonsun.com/rss/", "requiresKeywordFilter": false, "note": "Could not confirm this feed directly (fetch tool couldn't reach the domain) — confirm via the first live scrape's response summary, adjust URL if it fails." },
       { "name": "mySteinbach.ca", "url": "https://www.mysteinbach.ca/feed/", "requiresKeywordFilter": false }
